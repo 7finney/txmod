@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package protoeth;
+option py_generic_services = true;
+
+message TransactionInfo {
+    string transaction = 1;
+}
+
+message GetTxReq {
+    uint32 networkid = 1;
+    string txhash = 2;
+}
+
+service ProtoEthService {
+    rpc GetTransaction(GetTxReq) returns (TransactionInfo) {};
+}
+
+// ##############################
+// ## 1. create protocol buffer for sendTransaction
+// ## this protobuf should return a stream. Once the transaction is successful, stream will return confirmations
+// ## 2. split functions in multiple subs exmp - eth, personal, debug
+// ##############################
