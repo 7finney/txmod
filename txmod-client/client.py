@@ -17,6 +17,8 @@ from __future__ import print_function
 import logging
 import json
 from termcolor import cprint
+import pyqrcode
+import subprocess
 
 import grpc
 
@@ -29,12 +31,17 @@ def run():
     # of the code.
     with grpc.insecure_channel('localhost:50054') as channel:
         ethstub = ethereum_pb2_grpc.ProtoEthServiceStub(channel)
-        request = ethereum_pb2.GetTxReq(networkid=1, txhash="0x2b7704221388000577455f8d5f6c8a165e79930949421661481a3c9bb29a4cb")
+        request = ethereum_pb2.GetTxReq(networkid=1, txhash="0x2b7704221388000577455f8d5f6c8a165e79930949421661481a3c9bb29a4cbe")
         try:
             resp = ethstub.GetTransaction(request)
             tx = json.loads(resp.transaction)
             cprint('Transaction info:', 'yellow',)
             cprint(tx, 'green')
+            cprint("generating QR code...")
+            txqr = pyqrcode.create(json.dumps(tx))
+            txqr.png('transaction.png', scale=6)
+            cprint('transaction.png created', 'green')
+            subprocess.run(["xdg-open", "transaction.png"])
         except grpc.RpcError as rpc_error:
             cprint(f'RPC failed with error: {rpc_error}', 'red')
 

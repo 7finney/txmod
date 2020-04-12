@@ -33,6 +33,8 @@ parsimonious==0.8.1
 protobuf==3.11.3
 pycryptodome==3.9.7
 pylint==2.4.4
+pypng==0.0.20
+PyQRCode==1.2.1
 pyrsistent==0.16.0
 requests==2.23.0
 rlp==1.2.0
