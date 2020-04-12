@@ -11,6 +11,7 @@ pip freeze > requirements.txt
 ```
 
 # Start client
-```
-python client.py
+```python
+python client.py -t 0x2b7704221388000577455f8d5f6c8a165e79930949421661481a3c9bb29a4cbe # get and print transaction info
+python client.py -t 0x2b7704221388000577455f8d5f6c8a165e79930949421661481a3c9bb29a4cbe -q # get transaction info and make QR code
 ```
